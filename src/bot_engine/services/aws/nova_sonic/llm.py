@@ -596,7 +596,7 @@ class AWSNovaSonicLLMService(LLMService):
         return BedrockRuntimeClient(config=config)
 
     #
-    # LLM communication: input events (voicing -> LLM)
+    # LLM communication: input events (bot -> LLM)
     #
 
     async def _send_session_start_event(self):
@@ -837,7 +837,7 @@ class AWSNovaSonicLLMService(LLMService):
         await self._stream.input_stream.send(event)
 
     #
-    # LLM communication: output events (LLM -> voicing)
+    # LLM communication: output events (LLM -> bot)
     #
 
     # Receive events for the session.

@@ -1,11 +1,11 @@
-# Voicing Evals
+# Bot Engine Evals
 
-This directory contains a set of utilities to help test Voicing, specifically
+This directory contains a set of utilities to help test Bot Engine, specifically
 its examples.
 
 ## Release Evals
 
-Before any Voicing release, we make sure that all (or most) of the examples work
+Before any Bot Engine release, we make sure that all (or most) of the examples work
 flawlessly.  We have 100+ examples, and checking each one manually was very
 time-consuming (and painful!), especially because we aim to release often.
 

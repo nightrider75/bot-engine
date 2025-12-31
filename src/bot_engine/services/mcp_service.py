@@ -130,7 +130,7 @@ class MCPClient(BaseObject):
 
         return alternate_schema
 
-    def _convert_mcp_schema_to_voicing(
+    def _convert_mcp_schema_to_bot(
         self, tool_name: str, tool_schema: Dict[str, Any]
     ) -> FunctionSchema:
         """Convert an mcp tool schema to Bot Engine's FunctionSchema format.
@@ -334,7 +334,7 @@ class MCPClient(BaseObject):
 
             try:
                 # Convert the schema
-                function_schema = self._convert_mcp_schema_to_voicing(
+                function_schema = self._convert_mcp_schema_to_bot(
                     tool_name,
                     {"description": tool.description, "input_schema": tool.inputSchema},
                 )

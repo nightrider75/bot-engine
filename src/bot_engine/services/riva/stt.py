@@ -474,7 +474,7 @@ class RivaSegmentedSTTService(SegmentedSTTService):
         self._settings = {"language": self._language_enum}
 
     def language_to_service_language(self, language: Language) -> Optional[str]:
-        """Convert voicing Language enum to Riva's language code.
+        """Convert Language enum to Riva's language code.
 
         Args:
             language: Language enum value.

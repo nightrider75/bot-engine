@@ -51,10 +51,10 @@ except ModuleNotFoundError as e:
 
 
 def language_to_rime_language(language: Language) -> str:
-    """Convert voicing Language to Rime language code.
+    """Convert Language to Rime language code.
 
     Args:
-        language: The voicing Language enum value.
+        language: The Language enum value.
 
     Returns:
         Three-letter language code used by Rime (e.g., 'eng' for English).
@@ -165,7 +165,7 @@ class RimeTTSService(AudioContextWordTTSService):
         return True
 
     def language_to_service_language(self, language: Language) -> str | None:
-        """Convert voicing language to Rime language code.
+        """Convert language to Rime language code.
 
         Args:
             language: The language to convert.
@@ -501,7 +501,7 @@ class RimeHttpTTSService(TTSService):
         return True
 
     def language_to_service_language(self, language: Language) -> str | None:
-        """Convert voicing language to Rime language code.
+        """Convert language to Rime language code.
 
         Args:
             language: The language to convert.

@@ -276,28 +276,28 @@ def _setup_webrtc_routes(
         pc_id = request.get("pc_id")
 
         if pc_id and pc_id in pcs_map:
-            voicing_connection = pcs_map[pc_id]
+            webrtc_connection = pcs_map[pc_id]
             logger.info(f"Reusing existing connection for pc_id: {pc_id}")
-            await voicing_connection.renegotiate(
+            await webrtc_connection.renegotiate(
                 sdp=request["sdp"],
                 type=request["type"],
                 restart_pc=request.get("restart_pc", False),
             )
         else:
-            voicing_connection = SmallWebRTCConnection()
-            await voicing_connection.initialize(sdp=request["sdp"], type=request["type"])
+            webrtc_connection = SmallWebRTCConnection()
+            await webrtc_connection.initialize(sdp=request["sdp"], type=request["type"])
 
-            @voicing_connection.event_handler("closed")
+            @webrtc_connection.event_handler("closed")
             async def handle_disconnected(webrtc_connection: SmallWebRTCConnection):
                 """Handle WebRTC connection closure and cleanup."""
                 logger.info(f"Discarding peer connection for pc_id: {webrtc_connection.pc_id}")
                 pcs_map.pop(webrtc_connection.pc_id, None)
 
             bot_module = _get_bot_module()
-            runner_args = SmallWebRTCRunnerArguments(webrtc_connection=voicing_connection)
+            runner_args = SmallWebRTCRunnerArguments(webrtc_connection=webrtc_connection)
             background_tasks.add_task(bot_module.bot, runner_args)
 
-        answer = voicing_connection.get_answer()
+        answer = webrtc_connection.get_answer()
 
         # Apply ESP32 SDP munging if enabled
         if esp32_mode and host != "localhost":
@@ -305,7 +305,7 @@ def _setup_webrtc_routes(
 
             answer["sdp"] = smallwebrtc_sdp_munging(answer["sdp"], host)
 
-        pcs_map[answer["pc_id"]] = voicing_connection
+        pcs_map[answer["pc_id"]] = webrtc_connection
         return answer
 
     @app.patch("/api/offer")

@@ -296,7 +296,7 @@ class GladiaSTTService(STTService):
         return True
 
     def language_to_service_language(self, language: Language) -> Optional[str]:
-        """Convert voicing Language enum to Gladia's language code.
+        """Convert Language enum to Gladia's language code.
 
         Args:
             language: The Language enum value to convert.

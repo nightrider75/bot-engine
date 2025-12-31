@@ -858,7 +858,7 @@ class ElevenLabsHttpTTSService(WordTTSService):
         self._partial_word_start_time = 0.0
 
     def language_to_service_language(self, language: Language) -> Optional[str]:
-        """Convert voicing Language to ElevenLabs language code.
+        """Convert Language to ElevenLabs language code.
 
         Args:
             language: The language to convert.

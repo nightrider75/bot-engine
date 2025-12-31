@@ -339,7 +339,7 @@ def traced_llm(func: Optional[Callable] = None, *, name: Optional[str] = None) -
                 parent_context = turn_context or _get_parent_service_context(self)
 
                 # Create a new span as child of the turn span or service span
-                tracer = trace.get_tracer("voicing")
+                tracer = trace.get_tracer("bot-engine")
                 with tracer.start_as_current_span(
                     span_name, context=parent_context
                 ) as current_span:
@@ -542,7 +542,7 @@ def traced_gemini_live(operation: str) -> Callable:
                 parent_context = turn_context or _get_parent_service_context(self)
 
                 # Create a new span as child of the turn span or service span
-                tracer = trace.get_tracer("voicing")
+                tracer = trace.get_tracer("bot-engine")
                 with tracer.start_as_current_span(
                     span_name, context=parent_context
                 ) as current_span:
@@ -865,7 +865,7 @@ def traced_openai_realtime(operation: str) -> Callable:
                 parent_context = turn_context or _get_parent_service_context(self)
 
                 # Create a new span as child of the turn span or service span
-                tracer = trace.get_tracer("voicing")
+                tracer = trace.get_tracer("bot-engine")
                 with tracer.start_as_current_span(
                     span_name, context=parent_context
                 ) as current_span:

@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - It is now possible to start a bot from the `/start` endpoint when using the
-  runner Daily's transport. This follows the Voicing Cloud format with
+  runner Daily's transport. This follows the Bot Cloud format with
   `createDailyRoom` and `body` fields in the POST request body.
 
 - Added an ellipsis character (`…`) to the end of sentence detection in the
@@ -321,7 +321,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added `HeyGenTransport`. This is an integration for HeyGen Interactive
   Avatar. A video service that handles audio streaming and requests HeyGen to
   generate avatar video responses. (see https://www.heygen.com/). When used, the
-  Voicing bot joins the same virtual room as the HeyGen Avatar and the user.
+  Bot joins the same virtual room as the HeyGen Avatar and the user.
 
 - Added support to `TwilioFrameSerializer` for `region` and `edge` settings.
 

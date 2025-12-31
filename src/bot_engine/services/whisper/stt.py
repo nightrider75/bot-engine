@@ -99,7 +99,7 @@ class MLXModel(Enum):
 
 
 def language_to_whisper_language(language: Language) -> Optional[str]:
-    """Maps voicing Language enum to Whisper language codes.
+    """Maps Language enum to Whisper language codes.
 
     Args:
         language: A Language enum value representing the input language.

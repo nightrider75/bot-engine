@@ -303,7 +303,7 @@ class LiveKitTransportClient:
                     self._out_sample_rate, self._params.audio_out_channels
                 )
                 self._audio_track = rtc.LocalAudioTrack.create_audio_track(
-                    "voicing-audio", self._audio_source
+                    "bot-audio", self._audio_source
                 )
                 options = rtc.TrackPublishOptions()
                 options.source = rtc.TrackSource.SOURCE_MICROPHONE
@@ -734,19 +734,19 @@ class LiveKitInputTransport(BaseInputTransport):
         async for audio_data in audio_iterator:
             if audio_data:
                 audio_frame_event, participant_id = audio_data
-                voicing_audio_frame = await self._convert_livekit_audio_to_voicing(
+                audio_frame = await self._convert_livekit_audio_to_bot(
                     audio_frame_event
                 )
 
                 # Skip frames with no audio data
-                if len(voicing_audio_frame.audio) == 0:
+                if len(audio_frame.audio) == 0:
                     continue
 
                 input_audio_frame = UserAudioRawFrame(
                     user_id=participant_id,
-                    audio=voicing_audio_frame.audio,
-                    sample_rate=voicing_audio_frame.sample_rate,
-                    num_channels=voicing_audio_frame.num_channels,
+                    audio=audio_frame.audio,
+                    sample_rate=audio_frame.sample_rate,
+                    num_channels=audio_frame.num_channels,
                 )
                 await self.push_audio_frame(input_audio_frame)
 
@@ -757,23 +757,23 @@ class LiveKitInputTransport(BaseInputTransport):
         async for video_data in video_iterator:
             if video_data:
                 video_frame_event, participant_id = video_data
-                voicing_video_frame = await self._convert_livekit_video_to_voicing(
+                video_frame = await self._convert_livekit_video_to_bot(
                     video_frame_event=video_frame_event
                 )
 
                 # Skip frames with no video data
-                if len(voicing_video_frame.image) == 0:
+                if len(video_frame.image) == 0:
                     continue
 
                 input_video_frame = UserImageRawFrame(
                     user_id=participant_id,
-                    image=voicing_video_frame.image,
-                    size=voicing_video_frame.size,
-                    format=voicing_video_frame.format,
+                    image=video_frame.image,
+                    size=video_frame.size,
+                    format=video_frame.format,
                 )
                 await self.push_video_frame(input_video_frame)
 
-    async def _convert_livekit_audio_to_voicing(
+    async def _convert_livekit_audio_to_bot(
         self, audio_frame_event: rtc.AudioFrameEvent
     ) -> AudioRawFrame:
         """Convert LiveKit audio frame to Bot Engine audio frame."""
@@ -789,7 +789,7 @@ class LiveKitInputTransport(BaseInputTransport):
             num_channels=audio_frame.num_channels,
         )
 
-    async def _convert_livekit_video_to_voicing(
+    async def _convert_livekit_video_to_bot(
         self,
         video_frame_event: rtc.VideoFrameEvent,
     ) -> ImageRawFrame:
@@ -915,7 +915,7 @@ class LiveKitOutputTransport(BaseOutputTransport):
         Returns:
             True if the audio frame was written successfully, False otherwise.
         """
-        livekit_audio = self._convert_voicing_audio_to_livekit(frame.audio)
+        livekit_audio = self._convert_bot_audio_to_livekit(frame.audio)
         return await self._client.publish_audio(livekit_audio)
 
     def _supports_native_dtmf(self) -> bool:
@@ -934,14 +934,14 @@ class LiveKitOutputTransport(BaseOutputTransport):
         """
         await self._client.send_dtmf(frame.button.value)
 
-    def _convert_voicing_audio_to_livekit(self, voicing_audio: bytes) -> rtc.AudioFrame:
+    def _convert_bot_audio_to_livekit(self, bot_audio: bytes) -> rtc.AudioFrame:
         """Convert Bot Engine audio data to LiveKit audio frame."""
         bytes_per_sample = 2  # Assuming 16-bit audio
-        total_samples = len(voicing_audio) // bytes_per_sample
+        total_samples = len(bot_audio) // bytes_per_sample
         samples_per_channel = total_samples // self._params.audio_out_channels
 
         return rtc.AudioFrame(
-            data=voicing_audio,
+            data=bot_audio,
             sample_rate=self.sample_rate,
             num_channels=self._params.audio_out_channels,
             samples_per_channel=samples_per_channel,

@@ -187,41 +187,41 @@ class SmallWebRTCRequestHandler:
             existing_connection = self._pcs_map.get(pc_id) if pc_id else None
 
             if existing_connection:
-                voicing_connection = existing_connection
+                webrtc_connection = existing_connection
                 logger.info(f"Reusing existing connection for pc_id: {pc_id}")
-                await voicing_connection.renegotiate(
+                await webrtc_connection.renegotiate(
                     sdp=request.sdp,
                     type=request.type,
                     restart_pc=request.restart_pc or False,
                 )
             else:
-                voicing_connection = SmallWebRTCConnection(ice_servers=self._ice_servers)
-                await voicing_connection.initialize(sdp=request.sdp, type=request.type)
+                webrtc_connection = SmallWebRTCConnection(ice_servers=self._ice_servers)
+                await webrtc_connection.initialize(sdp=request.sdp, type=request.type)
 
-                @voicing_connection.event_handler("closed")
+                @webrtc_connection.event_handler("closed")
                 async def handle_disconnected(webrtc_connection: SmallWebRTCConnection):
                     logger.info(f"Discarding peer connection for pc_id: {webrtc_connection.pc_id}")
                     self._pcs_map.pop(webrtc_connection.pc_id, None)
 
                 # Invoke callback provided in runner arguments
                 try:
-                    await webrtc_connection_callback(voicing_connection)
+                    await webrtc_connection_callback(webrtc_connection)
                     logger.debug(
-                        f"webrtc_connection_callback executed successfully for peer: {voicing_connection.pc_id}"
+                        f"webrtc_connection_callback executed successfully for peer: {webrtc_connection.pc_id}"
                     )
                 except Exception as callback_error:
                     logger.error(
-                        f"webrtc_connection_callback failed for peer {voicing_connection.pc_id}: {callback_error}"
+                        f"webrtc_connection_callback failed for peer {webrtc_connection.pc_id}: {callback_error}"
                     )
 
-            answer = voicing_connection.get_answer()
+            answer = webrtc_connection.get_answer()
 
             if self._esp32_mode:
                 from bot_engine.runner.utils import smallwebrtc_sdp_munging
 
                 answer["sdp"] = smallwebrtc_sdp_munging(answer["sdp"], self._host)
 
-            self._pcs_map[answer["pc_id"]] = voicing_connection
+            self._pcs_map[answer["pc_id"]] = webrtc_connection
 
             return answer
         except Exception as e:

@@ -119,7 +119,7 @@ class WhatsAppClient:
             # Call WhatsApp API to terminate the call
             if self._whatsapp_api:
                 termination_tasks.append(self._whatsapp_api.terminate_call_to_whatsapp(call_id))
-            # Disconnect the voicing connection
+            # Disconnect the WebRTC connection
             termination_tasks.append(bot_engine_connection.disconnect())
 
         # Execute all terminations concurrently

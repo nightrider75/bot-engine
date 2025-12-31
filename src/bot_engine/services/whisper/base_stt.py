@@ -24,7 +24,7 @@ from bot_engine.utils.tracing.service_decorators import traced_stt
 
 
 def language_to_whisper_language(language: Language) -> Optional[str]:
-    """Maps voicing Language enum to Whisper API language codes.
+    """Maps Language enum to Whisper API language codes.
 
     Language support for Whisper API.
     Docs: https://platform.openai.com/docs/guides/speech-to-text#supported-languages

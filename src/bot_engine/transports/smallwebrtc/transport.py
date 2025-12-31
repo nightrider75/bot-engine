@@ -237,7 +237,7 @@ class SmallWebRTCClient:
 
         # We are always resampling it for 16000 if the sample_rate that we receive is bigger than that.
         # otherwise we face issues with Silero VAD
-        self._voicing_resampler = AudioResampler("s16", "mono", 16000)
+        self._audio_resampler = AudioResampler("s16", "mono", 16000)
 
         @self._webrtc_connection.event_handler("connected")
         async def on_connected(connection: SmallWebRTCConnection):
@@ -369,7 +369,7 @@ class SmallWebRTCClient:
                 continue
 
             if frame.sample_rate > self._in_sample_rate:
-                resampled_frames = self._voicing_resampler.resample(frame)
+                resampled_frames = self._audio_resampler.resample(frame)
                 for resampled_frame in resampled_frames:
                     # 16-bit PCM bytes
                     pcm_array = resampled_frame.to_ndarray().astype(np.int16)
