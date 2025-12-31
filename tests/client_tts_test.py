@@ -23,8 +23,8 @@ import websockets
 from pydub import AudioSegment
 
 # Get API key from environment
-API_KEY = os.getenv("VOICING_TTS_API_KEY", "your-api-key-here")
-SERVER_URI = os.getenv("VOICING_TTS_ENDPOINT", "") + f"/tts/stream?api_key={API_KEY}"
+API_KEY = os.getenv("TTS_API_KEY", "your-api-key-here")
+SERVER_URI = os.getenv("TTS_ENDPOINT", "") + f"/tts/stream?api_key={API_KEY}"
 
 
 # Initialize PyAudio for real-time playback

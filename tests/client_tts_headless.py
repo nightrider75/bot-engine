@@ -7,11 +7,11 @@ import websockets
 
 
 async def main():
-    api_key = os.getenv("VOICING_TTS_API_KEY", "your-api-key-here")
+    api_key = os.getenv("TTS_API_KEY", "your-api-key-here")
     if not api_key:
-        raise SystemExit("VOICING_TTS_API_KEY not set")
+        raise SystemExit("TTS_API_KEY not set")
 
-    base = os.getenv("VOICING_TTS_ENDPOINT", "")
+    base = os.getenv("TTS_ENDPOINT", "")
     uri = f"{base}/tts/stream?api_key={api_key}"
 
     print(f"Connecting to: {base}")
@@ -21,11 +21,11 @@ async def main():
         # Fixed request payload to match working test version
         request = {
             "text": "Hello! How are you doing today?",
-            "speaker": os.getenv("VOICING_TTS_SPEAKER", "amber"),
-            "language": os.getenv("VOICING_TTS_LANGUAGE", "en"),
-            "output_format": os.getenv("VOICING_TTS_OUTPUT", "pcm_24000"),
-            "speed": float(os.getenv("VOICING_TTS_SPEED", "1.0")),
-            "expressiveness": int(os.getenv("VOICING_TTS_EXPRESSIVENESS", "46")),
+            "speaker": os.getenv("TTS_SPEAKER", "amber"),
+            "language": os.getenv("TTS_LANGUAGE", "en"),
+            "output_format": os.getenv("TTS_OUTPUT", "pcm_24000"),
+            "speed": float(os.getenv("TTS_SPEED", "1.0")),
+            "expressiveness": int(os.getenv("TTS_EXPRESSIVENESS", "46")),
             "custom_pronunciations": {"words": {}, "phonemes": {}},
             "translate_text": False,
         }
