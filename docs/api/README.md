@@ -1,6 +1,6 @@
-# VoicingBotEngine Documentation
+# BotEngine Documentation
 
-This directory contains the source files for auto-generating VoicingBotEngine's server API reference documentation.
+This directory contains the source files for auto-generating BotEngine's server API reference documentation.
 
 ## Setup
 

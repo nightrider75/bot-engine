@@ -19,9 +19,7 @@ except ModuleNotFoundError as e:
     logger.error("In order to use Sentry, you need to `pip install bot-engine[sentry]`.")
     raise Exception(f"Missing module: {e}")
 
-from bot_engine.processors.metrics.frame_processor_metrics import (
-    FrameProcessorMetrics,
-)
+from bot_engine.processors.metrics.frame_processor_metrics import FrameProcessorMetrics
 
 
 class SentryMetrics(FrameProcessorMetrics):

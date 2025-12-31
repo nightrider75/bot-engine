@@ -63,8 +63,8 @@ class Traceable:
             self._tracer = self._meter = self._parent_span_id = self._span = None
             return
 
-        self._tracer = trace.get_tracer("voicing")
-        self._meter = metrics.get_meter("voicing")
+        self._tracer = trace.get_tracer("bot-engine")
+        self._meter = metrics.get_meter("bot-engine")
         self._parent_span_id = trace.get_current_span().get_span_context().span_id
         self._span = self._tracer.start_span(name)
         self._span.end()

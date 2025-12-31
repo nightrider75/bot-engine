@@ -128,7 +128,7 @@ class Mem0MemoryService(FrameProcessor):
             params = {
                 "async_mode": True,
                 "messages": messages,
-                "metadata": {"platform": "voicing"},
+                "metadata": {"platform": "bot-engine"},
                 "output_format": "v1.1",
             }
             for id in ["user_id", "agent_id", "run_id"]:

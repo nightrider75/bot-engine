@@ -150,7 +150,7 @@ def traced_tts(func: Optional[Callable] = None, *, name: Optional[str] = None) -
             parent_context = turn_context or _get_parent_service_context(self)
 
             # Create span
-            tracer = trace.get_tracer("voicing")
+            tracer = trace.get_tracer("bot-engine")
             with tracer.start_as_current_span(span_name, context=parent_context) as span:
                 try:
                     add_tts_span_attributes(
@@ -257,7 +257,7 @@ def traced_stt(func: Optional[Callable] = None, *, name: Optional[str] = None) -
                 parent_context = turn_context or _get_parent_service_context(self)
 
                 # Create a new span as child of the turn span or service span
-                tracer = trace.get_tracer("voicing")
+                tracer = trace.get_tracer("bot-engine")
                 with tracer.start_as_current_span(
                     span_name, context=parent_context
                 ) as current_span:

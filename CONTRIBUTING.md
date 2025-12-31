@@ -1,12 +1,12 @@
-## Contributing to VoicingBotEngine
+## Contributing to   BotEngine
 
 **Want to add a new service integration?**
 We encourage community-maintained integrations! Please see our [Community Integration Guide](COMMUNITY_INTEGRATIONS.md) for the process and requirements.
 
-**Want to contribute to Voicing AI core?**
+**Want to contribute to    AI core?**
 We welcome contributions of all kinds! Your help is appreciated. Follow these steps to get involved:
 
-1. **Fork this repository**: Start by forking the VoicingBotEngine Documentation repository to your GitHub account.
+1. **Fork this repository**: Start by forking the   BotEngine Documentation repository to your GitHub account.
 
 2. **Clone the repository**: Clone your forked repository to your local machine.
    ```bash

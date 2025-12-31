@@ -4,11 +4,11 @@
 </div></h1>
 
 
-# 🎙️ VoicingBotEngine: Real-Time Voice & Multimodal AI Agents
-# 🎙️ VoicingBotEngine: Real-Time Voice & Multimodal AI Agents
+# 🎙️  BotEngine: Real-Time Voice & Multimodal AI Agents
+# 🎙️  BotEngine: Real-Time Voice & Multimodal AI Agents
 
-**VoicingBotEngine** is an open-source Python framework for building real-time voice and multimodal conversational agents. Orchestrate audio and video, AI services, different transports, and conversation pipelines effortlessly—so you can focus on what makes your agent unique.
-**VoicingBotEngine** is an open-source Python framework for building real-time voice and multimodal conversational agents. Orchestrate audio and video, AI services, different transports, and conversation pipelines effortlessly—so you can focus on what makes your agent unique.
+** BotEngine** is an open-source Python framework for building real-time voice and multimodal conversational agents. Orchestrate audio and video, AI services, different transports, and conversation pipelines effortlessly—so you can focus on what makes your agent unique.
+** BotEngine** is an open-source Python framework for building real-time voice and multimodal conversational agents. Orchestrate audio and video, AI services, different transports, and conversation pipelines effortlessly—so you can focus on what makes your agent unique.
 
 > Want to dive right in? Try the [quickstart]().
 > Want to dive right in? Try the [quickstart]().
@@ -22,30 +22,30 @@
 - **Business Agents** – customer intake, support bots, guided flows
 - **Complex Dialog Systems** – design logic with structured conversations
 
-🧭 Looking to build structured conversations? Check out [VoicingBotEngine Flows]() for managing complex conversational states and transitions.
+🧭 Looking to build structured conversations? Check out [ BotEngine Flows]() for managing complex conversational states and transitions.
 
-## 🧠 Why VoicingBotEngine?
+## 🧠 Why  BotEngine?
 
 - **Voice-first**: Integrates speech recognition, text-to-speech, and conversation handling
 - **Pluggable**: Supports many AI services and tools
 - **Composable Pipelines**: Build complex behavior from modular components
 - **Real-Time**: Ultra-low latency interaction with different transports (e.g. WebSockets or WebRTC)
 
-## 🌐 Voicing Ecosystem
-## 🌐 Voicing Ecosystem
+## 🌐   Ecosystem
+## 🌐   Ecosystem
 
 ### 📱 Client SDKs
 
-Building client applications? You can connect to Voicing from any platform using our official SDKs:
-Building client applications? You can connect to Voicing from any platform using our official SDKs:
+Building client applications? You can connect to   from any platform using our official SDKs:
+Building client applications? You can connect to   from any platform using our official SDKs:
 
 <a href="
 <a href="
 
 ### 🧭 Structured conversations
 
-Looking to build structured conversations? Check out [Voicing Flows]() for managing complex conversational states and transitions.
-Looking to build structured conversations? Check out [Voicing Flows]() for managing complex conversational states and transitions.
+Looking to build structured conversations? Check out [  Flows]() for managing complex conversational states and transitions.
+Looking to build structured conversations? Check out [  Flows]() for managing complex conversational states and transitions.
 
 ### 🪄 Beautiful UIs
 
@@ -53,19 +53,19 @@ Want to build beautiful and engaging experiences? Checkout the [Voice UI Kit](),
 
 ### 🛠️ Create and deploy projects
 
-Create a new project in under a minute with the [Voicing CLI](). Then use the CLI to monitor and deploy your agent to production.
+Create a new project in under a minute with the [  CLI](). Then use the CLI to monitor and deploy your agent to production.
 
 ### 🔍 Debugging
 
-Looking for help debugging your pipeline and processors? Check out [Whisker](), a real-time Voicing debugger.
+Looking for help debugging your pipeline and processors? Check out [Whisker](), a real-time   debugger.
 
 ### 🖥️ Terminal
 
-Love terminal applications? Check out [Tail](), a terminal dashboard for Voicing.
+Love terminal applications? Check out [Tail](), a terminal dashboard for  .
 
-### 📺️ Voicing TV Channel
+### 📺️   TV Channel
 
-Catch new features, interviews, and how-tos on our [Voicing TV](https://www.youtube.com/playlist?list=PLzU2zoMTQIHjqC3v4q2XVSR3hGSzwKFwH) channel.
+Catch new features, interviews, and how-tos on our [  TV](https://www.youtube.com/playlist?list=PLzU2zoMTQIHjqC3v4q2XVSR3hGSzwKFwH) channel.
 
 ## 🎬 See it in action
 
@@ -79,7 +79,7 @@ Catch new features, interviews, and how-tos on our [Voicing TV](https://www.yout
 
 ## 📱 Client SDKs
 
-You can connect to VoicingBotEngine from any platform using our official SDKs:
+You can connect to  BotEngine from any platform using our official SDKs:
 
 | Platform | SDK Repo                                                                       | Description                      |
 | -------- | ------------------------------------------------------------------------------ | -------------------------------- |
@@ -109,8 +109,8 @@ You can connect to VoicingBotEngine from any platform using our official SDKs:
 
 ## ⚡ Getting started
 
-You can get started with VoicingBotEngine running on your local machine, then move your agent processes to the cloud when you're ready.
-You can get started with VoicingBotEngine running on your local machine, then move your agent processes to the cloud when you're ready.
+You can get started with  BotEngine running on your local machine, then move your agent processes to the cloud when you're ready.
+You can get started with  BotEngine running on your local machine, then move your agent processes to the cloud when you're ready.
 
 1. Install uv
 

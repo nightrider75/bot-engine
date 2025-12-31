@@ -19,7 +19,7 @@ from typing import Any, AsyncGenerator, Dict, Literal, Optional
 import aiohttp
 from loguru import logger
 
-from bot_engine import __version__ as voicing_version
+from bot_engine import __version__ as bot_version
 from bot_engine.frames.frames import (
     CancelFrame,
     EndFrame,
@@ -317,7 +317,7 @@ class GladiaSTTService(STTService):
 
         # Add custom_metadata if provided
         settings["custom_metadata"] = dict(self._params.custom_metadata or {})
-        settings["custom_metadata"]["bot-engine"] = bot_engine_version
+        settings["custom_metadata"]["bot-engine"] = bot_version
 
         # Add endpointing parameters if provided
         if self._params.endpointing is not None:

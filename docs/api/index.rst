@@ -1,11 +1,11 @@
-VoicingBotEngine API Reference
+BotEngine API Reference
 =====================
 
-Welcome to the VoicingBotEngine API reference.
+Welcome to the BotEngine API reference.
 
 Use the navigation on the left to browse modules, or search using the search box.
 
-**New to VoicingBotEngine?** Check out the main documentation for tutorials, guides, and client SDK information.
+**New to BotEngine?** Check out the main documentation for tutorials, guides, and client SDK information.
 
 Quick Links
 -----------

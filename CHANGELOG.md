@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to **VoicingBotEngine** will be documented in this file.
+All notable changes to **BotEngine** will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
@@ -974,7 +974,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Watchdog timers have been removed. They were introduced in 0.0.72 to help
   diagnose pipeline freezes. Unfortunately, they proved ineffective since they
-  required developers to use VoicingBotEngine-specific queues, iterators, and events to
+  required developers to use BotEngine-specific queues, iterators, and events to
   correctly reset the timer, which limited their usefulness and added friction.
 
 - Removed unused `FrameProcessor.set_parent()` and
@@ -1023,7 +1023,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Gemini model can be prompted to insert styled speech to control the TTS
   output.
 
-- Added Exotel support to VoicingBotEngine's development runner. You can now connect
+- Added Exotel support to BotEngine's development runner. You can now connect
   using the runner with `uv run bot.py -t exotel` and an ngrok connection to
   HTTP port 7860.
 
@@ -1124,7 +1124,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Deprecated
 
 - `TTSService.say()` is deprecated, push a `TTSSpeakFrame` instead. Calling
-  functions directly is a discouraged pattern in VoicingBotEngine because, for example,
+  functions directly is a discouraged pattern in BotEngine because, for example,
   it might cause issues with frame ordering.
 
 - `LLMMessagesFrame` is deprecated, in favor of either:
@@ -1164,7 +1164,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Trinity avatar, which is required for optimal Trinity avatar performance.
 
 - The development runner how handles custom `body` data for `DailyTransport`.
-  The `body` data is passed to the VoicingBotEngine client. You can POST to the `/start`
+  The `body` data is passed to the BotEngine client. You can POST to the `/start`
   endpoint with a request body of:
 
   ```
@@ -1367,7 +1367,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Updated the `deepgram` optional dependency to 4.7.0, which downgrades the
   `tasks cancelled error` to a debug log. This removes the log from appearing
-  in VoicingBotEngine logs upon leaving.
+  in BotEngine logs upon leaving.
 
 - Upgraded the `websockets` implementation to the new asyncio implementation.
   Along with this change, we're updating support for versions >=13.1.0 and
@@ -1681,7 +1681,7 @@ quality and critical bugs impacting `ParallelPipelines` functionality.**
   utilities behave as standard counterparts without side effects.
 
 - Introduce task watchdog timers. Watchdog timers are used to detect if a
-  VoicingBotEngine task is taking longer than expected (by default 5 seconds). Watchdog
+  BotEngine task is taking longer than expected (by default 5 seconds). Watchdog
   timers are disabled by default and can be enabled globally by passing
   `enable_watchdog_timers` argument to `PipelineTask` constructor. It is
   possible to change the default watchdog timer timeout by using the
@@ -1691,7 +1691,7 @@ quality and critical bugs impacting `ParallelPipelines` functionality.**
   you can set `enable_watchdog_timers`, `enable_watchdog_logging` and
   `watchdog_timeout` when creating any frame processor through their constructor
   arguments or when you create a task with `FrameProcessor.create_task()`. Note
-  that watchdog timers only work with VoicingBotEngine tasks and will not work if you use
+  that watchdog timers only work with BotEngine tasks and will not work if you use
   `asycio.create_task()` or similar.
 
 - Added `lexicon_names` parameter to `AWSPollyTTSService.InputParams`.
@@ -1819,8 +1819,8 @@ quality and critical bugs impacting `ParallelPipelines` functionality.**
   transcribe audio. Added a foundational example in
   `13f-cartesia-transcription.py`
 
-- Added an `websocket` example, showing how to use the new VoicingBotEngine client
-  `WebsocketTransport` to connect with VoicingBotEngine `FastAPIWebsocketTransport` or
+- Added an `websocket` example, showing how to use the new BotEngine client
+  `WebsocketTransport` to connect with BotEngine `FastAPIWebsocketTransport` or
   `WebsocketServerTransport`.
 
 - Added language support to `RimeHttpTTSService`. Extended languages to include
@@ -1834,7 +1834,7 @@ quality and critical bugs impacting `ParallelPipelines` functionality.**
   before doing the work of running the `PipelineTask` (i.e. without invoking
   `PipelineTask.set_event_loop()` first).
 
-- VoicingBotEngine 0.0.69 forced `uvloop` event loop on Linux on macOS. Unfortunately,
+- BotEngine 0.0.69 forced `uvloop` event loop on Linux on macOS. Unfortunately,
   this is causing issue in some systems. So, `uvloop` is not enabled by default
   anymore. If you want to use `uvloop` you can just set the `asyncio` event
   policy before starting your agent with:
@@ -1972,7 +1972,7 @@ asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
 - Added `GoogleHttpTTSService` which uses Google's HTTP TTS API.
 
 - Added `TavusTransport`, a new transport implementation compatible with any
-  VoicingBotEngine pipeline. When using the `TavusTransport`the VoicingBotEngine bot will
+  BotEngine pipeline. When using the `TavusTransport`the BotEngine bot will
   connect in the same room as the Tavus Avatar and the user.
 
 - Added `PlivoFrameSerializer` to support Plivo calls. A full running example
@@ -2015,7 +2015,7 @@ asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
   or `CancelFrame` are pushed from the beginning of the pipeline and finally
   `FrameProcessor.cleanup()` is called.
 
-- Added support for OpenTelemetry tracing in VoicingBotEngine. This initial
+- Added support for OpenTelemetry tracing in BotEngine. This initial
   implementation includes:
 
   - A `setup_tracing` method where you can specify your OpenTelemetry exporter
@@ -2037,7 +2037,7 @@ asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
       └── ...
   ```
 
-  By default, VoicingBotEngine has implemented service decorators to trace execution of
+  By default, BotEngine has implemented service decorators to trace execution of
   STT, LLM, and TTS services. You can enable tracing by setting
   `enable_tracing` to `True` in the PipelineTask.
 
@@ -2067,7 +2067,7 @@ asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
 
 - ⚠️ Refactored the `TavusVideoService`, so it acts like a proxy, sending audio
   to Tavus and receiving both audio and video. This will make
-  `TavusVideoService` usable with any VoicingBotEngine pipeline and with any transport.
+  `TavusVideoService` usable with any BotEngine pipeline and with any transport.
   This is a **breaking change**, check the
   `examples/foundational/21a-tavus-layer-small-webrtc.py` to see how to use it.
 
@@ -2104,7 +2104,7 @@ asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
 ### Deprecated
 
 - In `CartesiaTTSService` and `CartesiaHttpTTSService`, `emotion` has been
-  deprecated by Cartesia. VoicingBotEngine is following suit and deprecating `emotion`
+  deprecated by Cartesia. BotEngine is following suit and deprecating `emotion`
   as well.
 
 ### Removed
@@ -2215,7 +2215,7 @@ asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
   all tokens as one word.
 
 - Fixed a `PipelineTask` issue that would cause tasks to not be cancelled if
-  task was cancelled from outside of VoicingBotEngine.
+  task was cancelled from outside of BotEngine.
 
 - Fixed a `TaskManager` that was causing dangling tasks to be reported.
 
@@ -2336,14 +2336,14 @@ asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
   doesn't work the first time.
 
 - Input transports now always push audio downstream unless disabled with
-  `TransportParams.audio_in_passthrough`. After many VoicingBotEngine releases, we
+  `TransportParams.audio_in_passthrough`. After many BotEngine releases, we
   realized this is the common use case. There are use cases where the input
   transport already provides STT and you also don't want recordings, in which
   case there's no need to push audio to the rest of the pipeline, but this is
   not a very common case.
 
 - Added `RivaSegmentedSTTService`, which allows Riva offline/batch models, such
-  as to be "canary-1b-asr" used in VoicingBotEngine.
+  as to be "canary-1b-asr" used in BotEngine.
 
 ### Deprecated
 
@@ -2532,7 +2532,7 @@ https://en.wikipedia.org/wiki/Saint_George%27s_Day_in_Catalonia
 
 - Added comprehensive language support to `GeminiMultimodalLiveLLMService`,
   supporting over 30 languages via the `language` parameter, with proper
-  mapping between VoicingBotEngine's `Language` enum and Gemini's language codes.
+  mapping between BotEngine's `Language` enum and Gemini's language codes.
 
 - Added support in `SmallWebRTCTransport` to detect when remote tracks are
   muted.
@@ -2645,7 +2645,7 @@ https://en.wikipedia.org/wiki/Saint_George%27s_Day_in_Catalonia
 - `FunctionCallResultFrame`a are now system frames. This is to prevent function
   call results to be discarded during interruptions.
 
-- VoicingBotEngine services have been reorganized into packages. Each package can have
+- BotEngine services have been reorganized into packages. Each package can have
   one or more of the following modules (in the future new module names might be
   needed) depending on the services implemented:
 
@@ -2666,7 +2666,7 @@ https://en.wikipedia.org/wiki/Saint_George%27s_Day_in_Catalonia
 
 ### Deprecated
 
-- All VoicingBotEngine services imports have been deprecated and a warning will be shown
+- All BotEngine services imports have been deprecated and a warning will be shown
   when using the old import. The new import should be
   `bot_engine.services.[service].[image,llm,memory,stt,tts,video,vision]`. For
   example, `from bot_engine.services.openai.llm import OpenAILLMService`.
@@ -3066,7 +3066,7 @@ https://en.wikipedia.org/wiki/Saint_George%27s_Day_in_Catalonia
   information into the LLM response, which you want to parse and use in other
   parts of your application.
 
-- Added a VoicingBotEngine Cloud deployment example to the `examples` directory.
+- Added a BotEngine Cloud deployment example to the `examples` directory.
 
 - Removed foundational examples 28b and 28c as the TranscriptProcessor no
   longer has an LLM depedency. Renamed foundational example 28a to
@@ -3079,7 +3079,7 @@ https://en.wikipedia.org/wiki/Saint_George%27s_Day_in_Catalonia
 - Added track-specific audio event `on_track_audio_data` to
   `AudioBufferProcessor` for accessing separate input and output audio tracks.
 
-- VoicingBotEngine version will now be logged on every application startup. This will
+- BotEngine version will now be logged on every application startup. This will
   help us identify what version we are running in case of any issues.
 
 - Added a new `StopFrame` which can be used to stop a pipeline task while
@@ -3510,12 +3510,12 @@ stt = DeepgramSTTService(..., live_options=LiveOptions(model="nova-2-general"))
 
 ### Added
 
-- In order to create tasks in VoicingBotEngine frame processors it is now recommended to
+- In order to create tasks in BotEngine frame processors it is now recommended to
   use `FrameProcessor.create_task()` (which uses the new
   `utils.asyncio.create_task()`). It takes care of uncaught exceptions, task
   cancellation handling and task management. To cancel or wait for a task there
   is `FrameProcessor.cancel_task()` and `FrameProcessor.wait_for_task()`. All of
-  VoicingBotEngine processors have been updated accordingly. Also, when a pipeline runner
+  BotEngine processors have been updated accordingly. Also, when a pipeline runner
   finishes, a warning about dangling tasks might appear, which indicates if any
   of the created tasks was never cancelled or awaited for (using these new
   functions).
@@ -3725,7 +3725,7 @@ stt = DeepgramSTTService(..., live_options=LiveOptions(model="nova-2-general"))
 - Added `CerebrasLLMService` for Cerebras integration with an OpenAI-compatible
   interface. Added foundational example `14k-function-calling-cerebras.py`.
 
-- VoicingBotEngine now supports Python 3.13. We had a dependency on the `audioop` package
+- BotEngine now supports Python 3.13. We had a dependency on the `audioop` package
   which was deprecated and now removed on Python 3.13. We are now using
   `audioop-lts` (https://github.com/AbstractUmbra/audioop) to provide the same
   functionality.
@@ -4262,7 +4262,7 @@ async def on_connected(processor):
 
 - Added `sample_rate` as a constructor parameter for TTS services.
 
-- VoicingBotEngine has a pipeline-based architecture. The pipeline consists of frame
+- BotEngine has a pipeline-based architecture. The pipeline consists of frame
   processors linked to each other. The elements traveling across the pipeline
   are called frames.
 
@@ -4380,7 +4380,7 @@ async def on_connected(processor):
 
 ### Other
 
-- VoicingBotEngine now uses Ruff as its formatter (https://github.com/astral-sh/ruff).
+- BotEngine now uses Ruff as its formatter (https://github.com/astral-sh/ruff).
 
 ## [0.0.41] - 2024-08-22
 
@@ -4416,7 +4416,7 @@ async def on_connected(processor):
 - `ElevenLabsTTSService` can now specify ElevenLabs input parameters such as
   `output_format`.
 
-- `TwilioFrameSerializer` can now specify Twilio's and VoicingBotEngine's desired sample
+- `TwilioFrameSerializer` can now specify Twilio's and BotEngine's desired sample
   rates to use.
 
 - Added new `on_participant_updated` event to `DailyTransport`.
@@ -4713,7 +4713,7 @@ async def on_connected(processor):
 ### Other
 
 - Added `twilio-chatbot`. This is an example that shows how to integrate Twilio
-  phone numbers with a VoicingBotEngine bot.
+  phone numbers with a BotEngine bot.
 
 - Updated `07f-interruptible-azure.py` to use `AzureLLMService`,
   `AzureSTTService` and `AzureTTSService`.

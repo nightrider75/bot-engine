@@ -977,7 +977,7 @@ def _get_endpoint_url(url: str) -> str:
         str: The formatted endpoint URL.
     """
     query_params = dict()
-    query_params["sm-app"] = f"voicing/{__version__}"
+    query_params["sm-app"] = f"bot-engine/{__version__}"
     query = urlencode(query_params)
 
     return f"{url}?{query}"
