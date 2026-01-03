@@ -276,6 +276,7 @@ class SmallWebRTCConnection(BaseObject):
     def _initialize(self):
         """Initialize the peer connection and associated components."""
         logger.debug("Initializing new peer connection")
+        logger.info(f"ICE servers configured: {self.ice_servers}")
         rtc_config = RTCConfiguration(iceServers=self.ice_servers)
 
         self._answer: Optional[RTCSessionDescription] = None
