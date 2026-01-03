@@ -287,7 +287,30 @@ class FastAPIWebsocketInputTransport(BaseInputTransport):
     async def _receive_messages(self):
         """Main message receiving loop for WebSocket messages."""
         try:
-            async for message in self._client.receive():
+            # We accept both BINARY audio packets (PCM framing) and TEXT control
+            # messages (e.g. client "start" payload). Some clients will send a
+            # text message first and then stream binary audio. Iterating only
+            # over bytes will raise KeyError('bytes') for TEXT frames.
+            while True:
+                data = await self._client._websocket.receive()
+                message: bytes | str | None
+                if data.get("type") == "websocket.disconnect":
+                    break
+                if data.get("type") != "websocket.receive":
+                    continue
+                if "bytes" in data and data["bytes"] is not None:
+                    message = data["bytes"]
+                    logger.debug(
+                        f"{self} received binary message: {len(message)} bytes"
+                    )
+                elif "text" in data and data["text"] is not None:
+                    message = data["text"]
+                    logger.debug(
+                        f"{self} received text message: {len(message)} chars"
+                    )
+                else:
+                    continue
+
                 if not self._params.serializer:
                     continue
 
