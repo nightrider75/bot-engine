@@ -9,6 +9,7 @@ from bot_engine.frames.frames import (
     EndFrame,
     ErrorFrame,
     Frame,
+    InterruptionFrame,
     StartFrame,
     TextFrame,
     TTSAudioRawFrame,
@@ -129,6 +130,10 @@ class RotatingTTSProcessor(FrameProcessor):
         elif isinstance(frame, CancelFrame):
             await self._cancel(frame)
             await self.push_frame(frame, direction)
+        elif isinstance(frame, InterruptionFrame):
+            # Handle interruption by cancelling all TTS services
+            await self._handle_interruption(frame)
+            await self.push_frame(frame, direction)
         # Intercept TextFrame for TTS (but not transcription frames)
         elif isinstance(frame, TextFrame) and direction == FrameDirection.DOWNSTREAM:
             # Skip if this is a transcription frame (has user attribute)
@@ -177,6 +182,17 @@ class RotatingTTSProcessor(FrameProcessor):
                 await tts.cancel(frame)
             except Exception as e:
                 logger.warning(f"Error cancelling TTS service: {e}")
+
+    async def _handle_interruption(self, frame: InterruptionFrame):
+        """Handle interruption by passing it to all TTS services in the pool."""
+        logger.info("🛑 RotatingTTSProcessor: Handling interruption - stopping all TTS services!")
+        for i, tts in enumerate(self._tts_pool):
+            try:
+                # Send the interruption frame to the TTS service
+                await tts.process_frame(frame, FrameDirection.DOWNSTREAM)
+                logger.debug(f"✅ Sent interruption to TTS service #{i}")
+            except Exception as e:
+                logger.warning(f"❌ Error sending interruption to TTS service #{i}: {e}")
 
     async def _handle_tts_request(self, frame: TextFrame, direction: FrameDirection):
         """Handle TTS text frame with automatic failover.
