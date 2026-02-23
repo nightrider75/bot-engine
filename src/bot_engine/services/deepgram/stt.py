@@ -212,7 +212,13 @@ class DeepgramSTTService(STTService):
         Yields:
             Frame: None (transcription results come via WebSocket callbacks).
         """
-        await self._connection.send(audio)
+        if not self._connection.is_connected:
+            logger.warning(f"{self}: Deepgram not connected, attempting reconnect before sending audio")
+            await self._connect()
+        try:
+            await self._connection.send(audio)
+        except Exception as e:
+            logger.warning(f"{self}: Failed to send audio to Deepgram: {e}")
         yield None
 
     async def _connect(self):
@@ -240,7 +246,7 @@ class DeepgramSTTService(STTService):
             )
 
         # Deepgram SDK start can hang for ~10s on handshake failures; bound it so we fail fast.
-        connect_timeout = float(os.getenv("DEEPGRAM_CONNECT_TIMEOUT", "1"))
+        connect_timeout = float(os.getenv("DEEPGRAM_CONNECT_TIMEOUT", "5"))
         try:
             start_ok = await asyncio.wait_for(
                 self._connection.start(options=self._settings, addons=self._addons),
@@ -347,5 +353,15 @@ class DeepgramSTTService(STTService):
             await self.start_metrics()
         elif isinstance(frame, UserStoppedSpeakingFrame):
             # https://developers.deepgram.com/docs/finalize
-            await self._connection.finalize()
-            logger.trace(f"Triggered finalize event on: {frame.name=}, {direction=}")
+            try:
+                if self._connection.is_connected:
+                    await self._connection.finalize()
+                    logger.trace(f"Triggered finalize event on: {frame.name=}, {direction=}")
+                else:
+                    logger.warning(f"{self}: Skipping finalize - Deepgram connection is not connected")
+            except Exception as e:
+                logger.warning(f"{self}: finalize failed: {e}, attempting reconnect")
+                try:
+                    await self._connect()
+                except Exception as reconnect_err:
+                    logger.error(f"{self}: reconnect after finalize failure also failed: {reconnect_err}")
